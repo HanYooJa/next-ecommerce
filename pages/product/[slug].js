@@ -17,7 +17,7 @@ export default function ProductScreen() {
   if (!product) {
     return <div> Product Not Found. 그런 상품이 없습니다. </div>
   }
-
+  const router = useRouter()
   const addToCartHandler = () => {
     console.log(state.cart.cartItems)
     const existItem = state.cart.cartItems.find((x) => x.slug === product.slug)
@@ -29,6 +29,7 @@ export default function ProductScreen() {
     }
 
     dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } })
+    router.push('/cart')
   }
   return (
     <Layout title={product.name}>
