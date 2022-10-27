@@ -19,6 +19,12 @@ a {
   box-sizing: border-box;
 }
 
+input,
+select,
+textarea {
+  @apply rounded border p-2 outline-none ring-indigo-300 focus:ring  bg-slate-200;
+}
+
 .card {
   @apply mb-5 block rounded-lg border-gray-200 shadow-md;
 }
