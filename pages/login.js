@@ -6,6 +6,7 @@ import { signIn, useSession } from 'next-auth/react'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import { getError } from '../utils/error'
 
 export default function LoginScreen() {
   const { data: session } = useSession()
@@ -35,7 +36,7 @@ export default function LoginScreen() {
         toast.error(result.error)
       }
     } catch (err) {
-      toast.error(geterror(err))
+      toast.error(getError(err))
     }
   }
 
