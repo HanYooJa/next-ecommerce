@@ -40,6 +40,50 @@ export default function LoginScreen() {
     }
   }
 
+  const githubLoginHandler = async () => {
+    try {
+      const result = await signIn('github', {
+        redirect: false,
+      })
+      console.log('Github Login:' + result)
+    } catch (err) {
+      toast.error(getError(err))
+    }
+  }
+
+  const googlehubLoginHandler = async () => {
+    try {
+      const result = await signIn('google', {
+        redirect: false,
+      })
+      console.log('Google Login:' + result)
+    } catch (err) {
+      toast.error(getError(err))
+    }
+  }
+
+  const kakaoLoginHandler = async () => {
+    try {
+      const result = await signIn('kakao', {
+        redirect: false,
+      })
+      console.log('Kakao Login:' + result)
+    } catch (err) {
+      toast.error(getError(err))
+    }
+  }
+
+  const naverLoginHandler = async () => {
+    try {
+      const result = await signIn('naver', {
+        redirect: false,
+      })
+      console.log('naver Login:' + result)
+    } catch (err) {
+      toast.error(getError(err))
+    }
+  }
+
   return (
     <Layout title="Login">
       <form
@@ -47,7 +91,7 @@ export default function LoginScreen() {
         onSubmit={handleSubmit(submithandler)}
       >
         <h1 className="text-xl mb-4">Login</h1>
-        <div className="mb-4">
+        <div className="mb-4 bg-red-200 p-4 rounded-lg">
           <label htmlFor="email">Email</label>
           <input
             type="email"
@@ -65,8 +109,7 @@ export default function LoginScreen() {
           {errors.email && (
             <div className="text-red-500">{errors.email.message}</div>
           )}
-        </div>
-        <div className="mb-4">
+
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -77,15 +120,14 @@ export default function LoginScreen() {
                 message: '패스워드는 3글자 이상으로 입력하세요',
               },
             })}
-            className="w-full"
+            className="w-full mb-4"
             id="password"
             autoFocus
           />
           {errors.password && (
             <div className="text-red-500">{errors.password.message}</div>
           )}
-        </div>
-        <div className="mb-4">
+
           <button className="primary-button" type="submit">
             Login
           </button>
@@ -93,6 +135,47 @@ export default function LoginScreen() {
         <div className="mb-4">
           계정이 없으면 등록하세요. &nbsp;&nbsp;{''}
           <Link href="register">Register</Link>
+        </div>
+
+        <div className="p-5 bg-gray-500 p-4 rounded-lg">
+          <div className="mb-4">
+            <button
+              className="primary-button w-full"
+              type="button"
+              onClick={githubLoginHandler}
+            >
+              Github Login
+            </button>
+          </div>
+          <div className="mb-4">
+            <button
+              className="primary-button w-full"
+              type="button"
+              onClick={googlehubLoginHandler}
+            >
+              Goolge Login
+            </button>
+          </div>
+
+          <div className="mb-4">
+            <button
+              className="primary-button w-full"
+              type="button"
+              onClick={kakaoLoginHandler}
+            >
+              카카오 로그인
+            </button>
+          </div>
+
+          <div className="mb-4">
+            <button
+              className="primary-button w-full"
+              type="button"
+              onClick={naverLoginHandler}
+            >
+              Naver Login
+            </button>
+          </div>
         </div>
       </form>
     </Layout>

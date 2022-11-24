@@ -11,13 +11,13 @@ export default function ProductScreen() {
 
   const { query } = useRouter()
   const { slug } = query
-  const product = data.products.find((x) => x.slug === slug)
   console.log(product)
+  const router = useRouter()
+  const product = data.products.find((x) => x.slug === slug)
 
   if (!product) {
     return <div> Product Not Found. 그런 상품이 없습니다. </div>
   }
-  const router = useRouter()
   const addToCartHandler = () => {
     console.log(state.cart.cartItems)
     const existItem = state.cart.cartItems.find((x) => x.slug === product.slug)

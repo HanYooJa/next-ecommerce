@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -11,9 +10,6 @@ export default function ProductItem({ product }) {
             src={product.image}
             alt={product.name}
             className="rounded shadow"
-            layout="responsive"
-            width={640}
-            height={640}
           />
         </a>
       </Link>
