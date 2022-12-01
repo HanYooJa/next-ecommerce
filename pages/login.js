@@ -108,7 +108,7 @@ export default function LoginScreen() {
           />
           {errors.email && (
             <div className="text-red-500">{errors.email.message}</div>
-          )}
+            )}
 
           <label htmlFor="password">Password</label>
           <input
