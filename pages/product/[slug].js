@@ -1,29 +1,33 @@
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
-import data from '../../utils/data'
+//import data from '../../utils/data'
 import Image from 'next/image'
 import Link from 'next/link'
 import Layout from '../../components/Layout'
 import { Store } from '../../utils/Store'
+import Product from '../../models/Product'
+import db from '../../utils/db'
+import axios from 'axios'
 
-export default function ProductScreen() {
+export default function ProductScreen({ product }) {
   const { state, dispatch } = useContext(Store)
 
-  const { query } = useRouter()
-  const { slug } = query
+  //const { query } = useRouter()
+  //const { slug } = query
   console.log(product)
   const router = useRouter()
-  const product = data.products.find((x) => x.slug === slug)
+  //const product = data.products.find((x) => x.slug === slug)
 
   if (!product) {
-    return <div> Product Not Found. 그런 상품이 없습니다. </div>
+    return <Layout title="Product Not Found">Product Not Found</Layout>
   }
-  const addToCartHandler = () => {
+  const addToCartHandler = async () => {
     console.log(state.cart.cartItems)
     const existItem = state.cart.cartItems.find((x) => x.slug === product.slug)
     const quantity = existItem ? existItem.quantity + 1 : 1
+    const { data } = await axios.get(`/api/products/${product.id}`)
 
-    if (product.countInStock < quantity) {
+    if (data.countInStock < quantity) {
       alert('Sorry. 재고가 부족합니다.')
       return
     }
@@ -76,4 +80,18 @@ export default function ProductScreen() {
       </div>
     </Layout>
   )
+}
+
+export async function getServerSideProps(context) {
+  const { params } = context
+  const { sulg } = params
+
+  await db.connect()
+  const product = await Product.findOne(sulg).lean()
+  await db.disconnect()
+  return {
+    props: {
+      product: product ? db.convertDocToObj(product) : null,
+    },
+  }
 }
